@@ -40,8 +40,8 @@ export default function Header() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <span className="text-xl font-semibold text-white">
-              MONT<span className="text-blue-500">.</span>EL
+            <span className="text-xl font-semibold text-white tracking-wide">
+              MONTEL
             </span>
           </Link>
 
