@@ -9,9 +9,6 @@ import sensoriThumb from '../assets/Produzione/imgi_4_sensori_di_livello_thumb.w
 import cablaggiThumb from '../assets/Produzione/imgi_5_cablaggi_elettrici_thumb.webp'
 import quadriThumb from '../assets/Produzione/imgi_6_quadri_elettrici_thumb.webp'
 import sondeThumb from '../assets/Produzione/imgi_7_sonde_di_temperatura_thumb.webp'
-import caseHistory1 from '../assets/case history/imgi_4_sensori_di_livello_thumb_case.webp'
-import caseHistory2 from '../assets/case history/imgi_5_cablaggi_elettrici_thumb_case.webp'
-import caseHistory3 from '../assets/case history/imgi_6_quadri_elettrici_thumb_case.webp'
 
 export default function Home() {
   const observerRef = useRef(null)
@@ -26,7 +23,7 @@ export default function Home() {
           }
         })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1 }
     )
 
     document.querySelectorAll('.reveal').forEach((el) => {
@@ -37,398 +34,294 @@ export default function Home() {
   }, [])
 
   const products = [
-    {
-      title: 'Sensori di livello',
-      subtitle: 'carburante',
-      path: '/prodotti/sensori-livello-carburante',
-      image: sensoriThumb,
-    },
-    {
-      title: 'Cablaggi',
-      subtitle: 'elettrici',
-      path: '/prodotti/cablaggi-elettrici',
-      image: cablaggiThumb,
-    },
-    {
-      title: 'Quadri',
-      subtitle: 'elettrici',
-      path: '/prodotti/quadri-elettrici',
-      image: quadriThumb,
-    },
-    {
-      title: 'Sonde di',
-      subtitle: 'temperatura',
-      path: '/prodotti/sonde-temperatura',
-      image: sondeThumb,
-    },
+    { title: 'Sensori di livello', desc: 'Carburante', path: '/prodotti/sensori-livello-carburante', image: sensoriThumb },
+    { title: 'Cablaggi elettrici', desc: 'Custom', path: '/prodotti/cablaggi-elettrici', image: cablaggiThumb },
+    { title: 'Quadri elettrici', desc: 'Industriali', path: '/prodotti/quadri-elettrici', image: quadriThumb },
+    { title: 'Sonde temperatura', desc: 'Precisione', path: '/prodotti/sonde-temperatura', image: sondeThumb },
   ]
 
-  const stats = [
-    { number: '45+', label: 'Anni di esperienza' },
-    { number: '2', label: 'Stabilimenti produttivi' },
-    { number: '100%', label: 'Made in Italy & Romania' },
+  const sectors = [
+    'Automotive', 'Motocicli', 'Aeronautica', 'Nautica',
+    'Medicale', 'HVAC', 'Vending', 'Industriale'
   ]
-
-  const sectors = ['Automotive', 'Moto', 'Aeronautica', 'Nautica', 'Medicale', 'HVAC', 'Vending', 'Industriale']
 
   return (
-    <div className="overflow-x-hidden">
-      {/* HERO - Cinematic style */}
-      <section className="relative h-screen min-h-[700px] flex items-center">
+    <div>
+      {/* HERO */}
+      <section className="relative min-h-screen flex items-center bg-slate-950">
+        {/* Background */}
         <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt="Mont.El produzione"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/95 via-slate-900/70 to-blue-900/40" />
+          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
-
-        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-3xl">
-            <div className="animate-fade-up" style={{ animationDelay: '0.2s' }}>
-              <span className="inline-flex items-center gap-2 text-blue-400 text-sm font-medium tracking-wider uppercase mb-8">
-                <span className="w-12 h-px bg-blue-400" />
-                Dal 1979
-              </span>
+            {/* Tag */}
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="w-2 h-2 bg-blue-500 rounded-full" />
+              <span className="text-slate-400 text-sm tracking-wide">Dal 1979 • Fidenza, Italia</span>
             </div>
 
-            <h1 className="animate-fade-up" style={{ animationDelay: '0.4s' }}>
-              <span className="block text-5xl md:text-6xl lg:text-7xl font-light text-white mb-2">
-                Innovazione
-              </span>
-              <span className="block text-5xl md:text-6xl lg:text-7xl font-bold text-white">
-                in ogni <span className="gradient-text">connessione</span>
-              </span>
+            {/* Title */}
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8">
+              Componenti elettrici<br />
+              <span className="text-slate-500">di precisione</span>
             </h1>
 
-            <p className="animate-fade-up text-lg md:text-xl text-slate-300 mt-8 mb-12 max-w-xl leading-relaxed" style={{ animationDelay: '0.6s' }}>
-              Progettiamo e produciamo componenti elettrici ed elettronici per i settori più esigenti. Qualità certificata, flessibilità totale.
+            {/* Description */}
+            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed">
+              Progettiamo e produciamo sensori, cablaggi, quadri elettrici e sonde di temperatura per i settori industriali più esigenti.
             </p>
 
-            <div className="animate-fade-up flex flex-wrap gap-4" style={{ animationDelay: '0.8s' }}>
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-4">
               <Link
                 to="/contatti"
-                className="group relative bg-white text-slate-900 px-8 py-4 rounded-full font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-white/20"
+                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl font-medium transition-colors"
               >
-                <span className="relative z-10">Parliamo del tuo progetto</span>
+                Richiedi preventivo
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
               <Link
                 to="/prodotti"
-                className="group flex items-center gap-3 text-white px-8 py-4 rounded-full font-medium border border-white/20 hover:bg-white/10 transition-all"
+                className="inline-flex items-center gap-2 text-white hover:text-blue-400 px-7 py-3.5 rounded-xl font-medium border border-slate-700 hover:border-blue-600 transition-all"
               >
-                Esplora i prodotti
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+                Catalogo prodotti
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-          <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2">
-            <div className="w-1 h-2 bg-white/50 rounded-full animate-pulse" />
-          </div>
-        </div>
-      </section>
-
-      {/* STATS BAR */}
-      <section className="bg-slate-900 py-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-3 gap-8">
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.number}</div>
-                <div className="text-sm text-slate-400">{stat.label}</div>
+          {/* Stats - Right Side */}
+          <div className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-8">
+            {[
+              { num: '45+', label: 'Anni' },
+              { num: '3', label: 'Sedi' },
+              { num: '100%', label: 'Qualità' },
+            ].map((stat, i) => (
+              <div key={i} className="text-right">
+                <div className="text-3xl font-semibold text-white">{stat.num}</div>
+                <div className="text-sm text-slate-500">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CHI SIAMO - Editorial layout */}
-      <section className="py-32 bg-white relative">
+      {/* ABOUT */}
+      <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <div className="reveal opacity-0 translate-y-8">
-              <span className="inline-flex items-center gap-2 text-blue-600 text-sm font-medium tracking-wider uppercase mb-6">
-                <span className="w-8 h-px bg-blue-600" />
-                Chi siamo
-              </span>
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-8">
-                Esperienza e innovazione dal cuore dell'Italia
-              </h2>
-              <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                Mont.El è un gruppo industriale italiano specializzato nella progettazione e produzione di sensori, cablaggi elettrici, quadri e sonde di temperatura.
-              </p>
-              <p className="text-slate-500 mb-10 leading-relaxed">
-                Con stabilimenti in Italia e Romania, serviamo clienti in tutto il mondo nei settori automotive, aeronautico, navale, medicale e industriale. La nostra forza? Qualità certificata e flessibilità produttiva.
-              </p>
-              <Link
-                to="/azienda"
-                className="inline-flex items-center gap-2 text-slate-900 font-semibold group"
-              >
-                <span className="line-hover">Scopri la nostra storia</span>
-                <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-
-            <div className="reveal opacity-0 translate-y-8 relative">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Image */}
+            <div className="reveal opacity-0 translate-y-8 order-2 lg:order-1">
               <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-br from-blue-100 to-cyan-50 rounded-[2rem] -z-10" />
                 <img
                   src={aboutImage}
                   alt="Stabilimento Mont.El"
-                  className="rounded-[1.5rem] w-full shadow-2xl"
+                  className="w-full rounded-2xl"
                 />
-              </div>
-              {/* Floating card */}
-              <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl border border-slate-100 hidden lg:block">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center">
-                    <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="font-bold text-slate-900">ISO 9001 | IATF 16949</div>
-                    <div className="text-sm text-slate-500">Certificazioni internazionali</div>
-                  </div>
+                {/* Overlay Card */}
+                <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6 rounded-2xl hidden md:block">
+                  <div className="text-3xl font-semibold mb-1">1979</div>
+                  <div className="text-slate-400 text-sm">Anno di fondazione</div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* PRODOTTI - Bento style grid */}
-      <section className="py-32 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="reveal opacity-0 translate-y-8 text-center mb-20">
-            <span className="inline-flex items-center gap-2 text-blue-600 text-sm font-medium tracking-wider uppercase mb-4">
-              <span className="w-8 h-px bg-blue-600" />
-              I nostri prodotti
-              <span className="w-8 h-px bg-blue-600" />
-            </span>
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900">
-              Cosa produciamo
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {products.map((product, index) => (
-              <Link
-                key={index}
-                to={product.path}
-                className="reveal opacity-0 translate-y-8 group relative bg-white rounded-[1.5rem] overflow-hidden hover-lift"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="aspect-[4/5] overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="text-white">
-                    <span className="block text-lg font-light opacity-80">{product.title}</span>
-                    <span className="block text-2xl font-bold">{product.subtitle}</span>
-                  </h3>
-                  <div className="mt-4 flex items-center gap-2 text-white/70 text-sm group-hover:text-white transition-colors">
-                    <span>Scopri</span>
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SETTORI - Marquee style */}
-      <section className="py-24 bg-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16 relative">
-          <div className="reveal opacity-0 translate-y-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-            <div>
-              <span className="inline-flex items-center gap-2 text-blue-400 text-sm font-medium tracking-wider uppercase mb-4">
-                <span className="w-8 h-px bg-blue-400" />
-                Settori
-              </span>
-              <h2 className="text-4xl lg:text-5xl font-bold text-white">
-                Dove operiamo
+            {/* Content */}
+            <div className="reveal opacity-0 translate-y-8 order-1 lg:order-2">
+              <div className="text-sm text-blue-600 font-medium mb-4">CHI SIAMO</div>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-6 leading-tight">
+                Un gruppo industriale italiano leader nel settore elettrico
               </h2>
-            </div>
-            <p className="text-slate-400 max-w-md">
-              I nostri prodotti sono presenti nelle industrie più esigenti, dall'automotive all'aeronautica.
-            </p>
-          </div>
-        </div>
-
-        {/* Sectors marquee */}
-        <div className="relative">
-          <div className="flex gap-4 animate-marquee">
-            {[...sectors, ...sectors].map((sector, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 px-8 py-4 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 text-white font-medium"
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                Mont.El progetta e produce componenti elettrici ed elettronici per i settori più esigenti: automotive, aeronautica, nautica, medicale e industriale.
+              </p>
+              <p className="text-slate-500 mb-8 leading-relaxed">
+                Con stabilimenti in Italia e Romania, garantiamo qualità certificata ISO 9001 e IATF 16949, flessibilità produttiva e tempi di consegna competitivi.
+              </p>
+              <Link
+                to="/azienda"
+                className="inline-flex items-center gap-2 text-slate-900 font-medium hover:text-blue-600 transition-colors"
               >
-                {sector}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 mt-16 text-center relative">
-          <Link
-            to="/settori"
-            className="inline-flex items-center gap-2 bg-white text-slate-900 px-8 py-4 rounded-full font-semibold hover:bg-slate-100 transition-colors"
-          >
-            Tutti i settori
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-        </div>
-      </section>
-
-      {/* QUALITÀ - Split screen */}
-      <section className="relative min-h-[80vh] flex items-center">
-        <div className="absolute inset-0 lg:w-1/2">
-          <img
-            src={qualityImage}
-            alt="Qualità Mont.El"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-900/40 lg:bg-transparent" />
-        </div>
-
-        <div className="relative w-full">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="lg:w-1/2 lg:ml-auto lg:pl-16">
-              <div className="reveal opacity-0 translate-y-8 bg-white rounded-[2rem] p-10 lg:p-14 shadow-2xl">
-                <span className="inline-flex items-center gap-2 text-blue-600 text-sm font-medium tracking-wider uppercase mb-6">
-                  <span className="w-8 h-px bg-blue-600" />
-                  Qualità
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
-                  Standard di eccellenza certificati
-                </h2>
-                <p className="text-slate-600 mb-8 leading-relaxed">
-                  Certificazioni ISO 9001, IATF 16949 e brevetti internazionali testimoniano il nostro impegno costante verso l'eccellenza. Ogni prodotto supera rigorosi controlli qualità.
-                </p>
-
-                <div className="grid grid-cols-2 gap-4 mb-10">
-                  {['ISO 9001', 'IATF 16949', 'Brevetti', 'Test 100%'].map((cert, i) => (
-                    <div key={i} className="flex items-center gap-3 text-slate-700">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full" />
-                      {cert}
-                    </div>
-                  ))}
-                </div>
-
-                <Link
-                  to="/qualita"
-                  className="inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-slate-800 transition-colors"
-                >
-                  Scopri di più
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
+                Scopri di più
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CASE HISTORY */}
-      <section className="py-32 bg-white">
+      {/* PRODUCTS */}
+      <section className="py-24 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="reveal opacity-0 translate-y-8 flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 reveal opacity-0 translate-y-8">
             <div>
-              <span className="inline-flex items-center gap-2 text-blue-600 text-sm font-medium tracking-wider uppercase mb-4">
-                <span className="w-8 h-px bg-blue-600" />
-                Case History
-              </span>
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900">
-                Storie di successo
+              <div className="text-sm text-blue-600 font-medium mb-4">PRODOTTI</div>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
+                Le nostre soluzioni
               </h2>
             </div>
             <Link
-              to="/case-history"
-              className="inline-flex items-center gap-2 text-slate-900 font-semibold group"
+              to="/prodotti"
+              className="inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 font-medium transition-colors"
             >
-              <span className="line-hover">Tutti i progetti</span>
-              <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              Vedi tutti i prodotti
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { img: caseHistory1, title: 'Sensori automotive', desc: 'Sviluppo sensori resistivi per veicoli commerciali' },
-              { img: caseHistory2, title: 'Cablaggi moto', desc: 'Soluzioni complete per moto da competizione' },
-              { img: caseHistory3, title: 'Quadri industriali', desc: 'Quadri per automazione di linee produttive' },
-            ].map((item, i) => (
-              <div
+          {/* Grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((product, i) => (
+              <Link
                 key={i}
-                className="reveal opacity-0 translate-y-8 group"
-                style={{ animationDelay: `${i * 0.15}s` }}
+                to={product.path}
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
+                style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="img-reveal rounded-[1.5rem] overflow-hidden mb-6">
+                <div className="aspect-[4/3] overflow-hidden">
                   <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-full aspect-[4/3] object-cover"
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                <p className="text-slate-500">{item.desc}</p>
-              </div>
+                <div className="p-5">
+                  <div className="text-xs text-blue-600 font-medium mb-1">{product.desc}</div>
+                  <h3 className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                    {product.title}
+                  </h3>
+                </div>
+              </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTORS */}
+      <section className="py-24 lg:py-32 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Content */}
+            <div className="reveal opacity-0 translate-y-8">
+              <div className="text-sm text-blue-400 font-medium mb-4">SETTORI</div>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
+                Presenti nelle industrie più esigenti
+              </h2>
+              <p className="text-slate-400 mb-8 leading-relaxed">
+                Oltre 40 anni di esperienza ci hanno permesso di sviluppare competenze specifiche per ogni settore industriale, dalle certificazioni automotive alle applicazioni medicali.
+              </p>
+              <Link
+                to="/settori"
+                className="inline-flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-xl font-medium hover:bg-slate-100 transition-colors"
+              >
+                Esplora i settori
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Sectors Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+              {sectors.map((sector, i) => (
+                <div
+                  key={i}
+                  className="px-5 py-4 bg-slate-800/50 rounded-xl text-slate-300 text-sm font-medium border border-slate-700/50 hover:border-blue-500/50 hover:bg-slate-800 transition-all cursor-default"
+                >
+                  {sector}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* QUALITY */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Content */}
+            <div className="reveal opacity-0 translate-y-8">
+              <div className="text-sm text-blue-600 font-medium mb-4">QUALITÀ</div>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-6">
+                Standard certificati internazionali
+              </h2>
+              <p className="text-slate-600 mb-8 leading-relaxed">
+                Le nostre certificazioni testimoniano l'impegno costante verso l'eccellenza. Ogni prodotto supera rigorosi controlli qualità prima della consegna.
+              </p>
+
+              {/* Certifications */}
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {[
+                  { name: 'ISO 9001', desc: 'Gestione qualità' },
+                  { name: 'IATF 16949', desc: 'Standard automotive' },
+                  { name: 'ISO 14001', desc: 'Gestione ambientale' },
+                  { name: 'UL Listed', desc: 'Sicurezza elettrica' },
+                ].map((cert, i) => (
+                  <div key={i} className="p-4 bg-slate-50 rounded-xl">
+                    <div className="font-semibold text-slate-900">{cert.name}</div>
+                    <div className="text-sm text-slate-500">{cert.desc}</div>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                to="/qualita"
+                className="inline-flex items-center gap-2 text-slate-900 font-medium hover:text-blue-600 transition-colors"
+              >
+                Scopri le certificazioni
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Image */}
+            <div className="reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+              <img
+                src={qualityImage}
+                alt="Controllo qualità"
+                className="w-full rounded-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800" />
-        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
-
-        <div className="relative max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <div className="reveal opacity-0 translate-y-8">
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              Iniziamo a lavorare insieme
-            </h2>
-            <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-              Hai un progetto da realizzare? Contattaci per discutere delle tue esigenze.
-            </p>
+      <section className="py-24 lg:py-32 bg-slate-950">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+          <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
+            Hai un progetto da realizzare?
+          </h2>
+          <p className="text-slate-400 mb-10 max-w-2xl mx-auto">
+            Contattaci per discutere delle tue esigenze. Il nostro team tecnico è pronto ad assisterti nella progettazione e produzione dei tuoi componenti.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
             <Link
               to="/contatti"
-              className="inline-flex items-center gap-3 bg-white text-blue-700 px-10 py-5 rounded-full font-semibold text-lg hover:bg-blue-50 transition-colors shadow-2xl shadow-black/20"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-medium transition-colors"
             >
-              Parliamone
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              Contattaci
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
+            <a
+              href="tel:+390524123456"
+              className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-medium border border-slate-700 hover:border-slate-600 transition-colors"
+            >
+              +39 0524 123456
+            </a>
           </div>
         </div>
       </section>

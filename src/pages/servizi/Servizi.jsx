@@ -23,7 +23,7 @@ export default function Servizi() {
           }
         })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1 }
     )
 
     document.querySelectorAll('.reveal').forEach((el) => {
@@ -36,47 +36,32 @@ export default function Servizi() {
   const services = [
     {
       title: 'Progettazione',
-      description: 'Dalla fase concettuale alla progettazione esecutiva, sviluppiamo soluzioni personalizzate.',
+      description: 'Dalla fase concettuale alla progettazione esecutiva, sviluppiamo soluzioni personalizzate con approccio codesign.',
       path: '/servizi/progettazione',
       image: progettazioneImg,
     },
     {
       title: 'Produzione',
-      description: 'Stabilimenti all\'avanguardia in Italia e Romania con processi certificati.',
+      description: 'Stabilimenti all\'avanguardia in Italia e Romania con processi certificati e controllo qualità al 100%.',
       path: '/servizi/produzione',
       image: produzioneImg,
     },
   ]
 
+  const processSteps = [
+    { num: '01', title: 'Analisi', desc: 'Studio delle esigenze e specifiche tecniche' },
+    { num: '02', title: 'Progettazione', desc: 'Sviluppo concept e disegni esecutivi' },
+    { num: '03', title: 'Prototipo', desc: 'Realizzazione e test del campione' },
+    { num: '04', title: 'Validazione', desc: 'Approvazione cliente e certificazioni' },
+    { num: '05', title: 'Produzione', desc: 'Serie con controllo qualità integrato' },
+    { num: '06', title: 'Consegna', desc: 'Logistica ottimizzata just-in-time' },
+  ]
+
   const features = [
-    {
-      title: 'Codesign',
-      description: 'Collaborazione fin dalla fase iniziale per sviluppare soluzioni ottimali.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-        </svg>
-      ),
-    },
-    {
-      title: 'Flessibilità',
-      description: 'Adattiamo processi e volumi alle specifiche esigenze di ogni progetto.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        </svg>
-      ),
-    },
-    {
-      title: 'Qualità Certificata',
-      description: 'Processi certificati ISO e IATF per i più alti standard.',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
-      ),
-    },
+    { title: 'Codesign', desc: 'Lavoriamo insieme al cliente dalla prima idea' },
+    { title: 'Rapidità', desc: 'Time-to-market ridotto e consegne puntuali' },
+    { title: 'Qualità', desc: 'Processi certificati ISO e IATF' },
+    { title: 'Flessibilità', desc: 'Adattiamo volumi e tempistiche' },
   ]
 
   if (!isLanding) {
@@ -85,81 +70,96 @@ export default function Servizi() {
 
   return (
     <div>
-      {/* Hero Cinematico */}
-      <section className="relative h-[60vh] min-h-[450px] overflow-hidden">
-        <img
-          src={heroImage}
-          alt="Servizi Mont.El"
-          className="absolute inset-0 w-full h-full object-cover animate-slow-zoom"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-950/60 to-transparent" />
-
-        {/* Decorative */}
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-16">
-          <span className="text-blue-400 text-sm font-medium tracking-widest uppercase mb-4 animate-fade-up">
-            Il Nostro Approccio
-          </span>
-          <h1 className="text-5xl lg:text-7xl font-light text-white mb-4 animate-fade-up" style={{ animationDelay: '100ms' }}>
-            <span className="font-bold">Servizi</span>
-          </h1>
-          <p className="text-xl text-gray-300 max-w-2xl animate-fade-up" style={{ animationDelay: '200ms' }}>
-            Dalla progettazione alla produzione, un partner completo per le tue esigenze.
-          </p>
+      {/* HERO */}
+      <section className="relative min-h-[70vh] flex items-center bg-slate-950">
+        <div className="absolute inset-0">
+          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
-      </section>
 
-      {/* Intro */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl reveal opacity-0 translate-y-8">
-            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4 block">
-              Partner Completo
-            </span>
-            <h2 className="text-4xl lg:text-5xl font-light text-gray-900 mb-6">
-              Servizi integrati per<br /><span className="font-bold">ogni fase del progetto</span>
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Offriamo un servizio completo che accompagna il cliente dalla prima idea
-              fino al prodotto finito. La nostra esperienza e flessibilità ci permettono
-              di adattarci a ogni esigenza specifica.
+        <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="w-2 h-2 bg-blue-500 rounded-full" />
+              <span className="text-slate-400 text-sm tracking-wide">I Nostri Servizi</span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8">
+              Partner<br />
+              <span className="text-slate-500">completo</span>
+            </h1>
+
+            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed">
+              Dalla prima idea al prodotto finito, ti accompagniamo in ogni fase del progetto con competenza e flessibilità.
             </p>
+
+            <Link
+              to="/contatti"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl font-medium transition-colors"
+            >
+              Richiedi consulenza
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+
+          {/* Stats - Right Side */}
+          <div className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-8">
+            {[
+              { num: '45+', label: 'Anni' },
+              { num: '100%', label: 'Qualità' },
+              { num: '3', label: 'Sedi' },
+            ].map((stat, i) => (
+              <div key={i} className="text-right">
+                <div className="text-3xl font-semibold text-white">{stat.num}</div>
+                <div className="text-sm text-slate-500">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Services Cards */}
-      <section className="pb-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* SERVICES */}
+      <section className="py-24 lg:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 reveal opacity-0 translate-y-8">
+            <div>
+              <div className="text-sm text-blue-600 font-medium mb-4">COSA FACCIAMO</div>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
+                I nostri servizi
+              </h2>
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-8">
-            {services.map((service, index) => (
+            {services.map((service, i) => (
               <Link
-                key={index}
+                key={i}
                 to={service.path}
-                className="group relative overflow-hidden rounded-3xl h-[450px] reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${index * 150}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
+                style={{ animationDelay: `${i * 100}ms` }}
               >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent" />
-                <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-10">
-                  <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-300 text-lg mb-6 max-w-md">
-                    {service.description}
-                  </p>
-                  <span className="inline-flex items-center gap-2 text-white font-medium">
-                    Scopri di più
-                    <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </span>
+                <div className="grid md:grid-cols-2">
+                  <div className="aspect-square md:aspect-auto overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-semibold text-slate-900 group-hover:text-blue-600 transition-colors mb-4">
+                      {service.title}
+                    </h3>
+                    <p className="text-slate-600 mb-6">{service.description}</p>
+                    <span className="inline-flex items-center gap-2 text-slate-900 font-medium group-hover:text-blue-600">
+                      Scopri di più
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -167,59 +167,99 @@ export default function Servizi() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* PROCESS */}
+      <section className="py-24 lg:py-32 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16 reveal opacity-0 translate-y-8">
-            <span className="text-xs font-semibold uppercase tracking-widest text-blue-600 mb-4 block">
-              I Nostri Punti di Forza
-            </span>
-            <h2 className="text-3xl lg:text-4xl font-light text-gray-900">
-              Perché <span className="font-bold">sceglierci</span>
+            <div className="text-sm text-blue-600 font-medium mb-4">IL NOSTRO PROCESSO</div>
+            <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-4">
+              Come lavoriamo
             </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto">
+              Un processo strutturato che garantisce qualità e tempistiche certe in ogni fase.
+            </p>
           </div>
-          <div className="grid lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {processSteps.map((step, i) => (
               <div
-                key={index}
-                className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${index * 100}ms` }}
+                key={i}
+                className="p-6 bg-white rounded-2xl hover:shadow-lg transition-shadow reveal opacity-0 translate-y-8"
+                style={{ animationDelay: `${i * 100}ms` }}
               >
-                <div className="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mb-6 text-gray-700">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {feature.description}
-                </p>
+                <div className="text-blue-600 text-sm font-medium mb-4">{step.num}</div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-slate-600 text-sm">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative py-24 bg-gray-950 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-3xl" />
+      {/* FEATURES */}
+      <section className="py-24 lg:py-32 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="reveal opacity-0 translate-y-8">
+              <div className="text-sm text-blue-400 font-medium mb-4">PERCHÉ SCEGLIERCI</div>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
+                I nostri punti di forza
+              </h2>
+              <p className="text-slate-400 mb-8 leading-relaxed">
+                Oltre 40 anni di esperienza ci hanno insegnato che il successo nasce dalla collaborazione, dalla qualità e dalla flessibilità.
+              </p>
+              <Link
+                to="/contatti"
+                className="inline-flex items-center gap-2 bg-white text-slate-900 px-7 py-3.5 rounded-xl font-medium hover:bg-slate-100 transition-colors"
+              >
+                Parliamone insieme
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+              {features.map((feature, i) => (
+                <div
+                  key={i}
+                  className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors"
+                >
+                  <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+                  <p className="text-slate-400 text-sm">{feature.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
-          <h2 className="text-4xl lg:text-5xl font-light text-white mb-6">
-            Hai un <span className="font-bold">progetto in mente?</span>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 lg:py-32 bg-slate-950">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+          <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
+            Hai un progetto in mente?
           </h2>
-          <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
-            Contattaci per discutere delle tue esigenze.
-            Il nostro team è pronto ad assisterti.
+          <p className="text-slate-400 mb-10 max-w-2xl mx-auto">
+            Contattaci per una consulenza gratuita. Il nostro team è pronto ad assisterti in ogni fase del tuo progetto.
           </p>
-          <Link
-            to="/contatti"
-            className="inline-flex items-center gap-3 bg-white text-gray-900 px-10 py-5 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl group"
-          >
-            Richiedi informazioni
-            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to="/contatti"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-medium transition-colors"
+            >
+              Richiedi info
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <a
+              href="tel:+390524123456"
+              className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-medium border border-slate-700 hover:border-slate-600 transition-colors"
+            >
+              +39 0524 123456
+            </a>
+          </div>
         </div>
       </section>
     </div>
