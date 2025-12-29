@@ -41,7 +41,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <span className="text-xl font-semibold text-white tracking-wide">
-              MONT<span className="text-blue-500">.</span>EL
+              MONTEL
             </span>
           </Link>
 
