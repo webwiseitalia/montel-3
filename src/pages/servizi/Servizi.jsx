@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../../assets/sviluppo/imgi_17_2500x900-azienda.webp'
@@ -9,28 +13,126 @@ import produzioneImg from '../../assets/sviluppo/imgi_8_1300x900-azienda.webp'
 export default function Servizi() {
   const location = useLocation()
   const isLanding = location.pathname === '/servizi'
-  const observerRef = useRef(null)
+  const containerRef = useRef(null)
 
   useEffect(() => {
     if (!isLanding) return
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    const ctx = gsap.context(() => {
+      // Hero animations
+      gsap.fromTo('.hero-title',
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hero-subtitle',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+      )
+      gsap.fromTo('.hero-cta',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.6 }
+      )
+      gsap.fromTo('.hero-stat',
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.8 }
+      )
+
+      // Fade up sections
+      gsap.utils.toArray('.gsap-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Service cards
+      gsap.utils.toArray('.service-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.15
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // Process steps
+      gsap.utils.toArray('.process-step').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.08
+          }
+        )
+      })
+
+      // Feature cards
+      gsap.utils.toArray('.feature-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { scale: 0.9, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(1.4)',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
+
+      // Slide from left
+      gsap.utils.toArray('.gsap-slide-left').forEach((el) => {
+        gsap.fromTo(el,
+          { x: -60, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [isLanding])
 
   const services = [
@@ -69,9 +171,9 @@ export default function Servizi() {
   }
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* HERO */}
-      <section className="relative min-h-[70vh] flex items-center bg-slate-950">
+      <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
@@ -79,23 +181,23 @@ export default function Servizi() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-3 mb-8">
+            <div className="inline-flex items-center gap-3 mb-8 hero-subtitle">
               <span className="w-2 h-2 bg-blue-500 rounded-full" />
               <span className="text-slate-400 text-sm tracking-wide">I Nostri Servizi</span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8 hero-title">
               Partner<br />
               <span className="text-slate-500">completo</span>
             </h1>
 
-            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed">
+            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed hero-subtitle">
               Dalla prima idea al prodotto finito, ti accompagniamo in ogni fase del progetto con competenza e flessibilità.
             </p>
 
             <Link
               to="/contatti"
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl font-medium transition-colors hero-cta"
             >
               Richiedi consulenza
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,11 +209,11 @@ export default function Servizi() {
           {/* Stats - Right Side */}
           <div className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-8">
             {[
-              { num: '45+', label: 'Anni' },
+              { num: '50+', label: 'Anni' },
               { num: '100%', label: 'Qualità' },
               { num: '3', label: 'Sedi' },
             ].map((stat, i) => (
-              <div key={i} className="text-right">
+              <div key={i} className="text-right hero-stat">
                 <div className="text-3xl font-semibold text-white">{stat.num}</div>
                 <div className="text-sm text-slate-500">{stat.label}</div>
               </div>
@@ -123,7 +225,7 @@ export default function Servizi() {
       {/* SERVICES */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 reveal opacity-0 translate-y-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 gsap-fade-up">
             <div>
               <div className="text-sm text-blue-600 font-medium mb-4">COSA FACCIAMO</div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
@@ -137,8 +239,7 @@ export default function Servizi() {
               <Link
                 key={i}
                 to={service.path}
-                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 service-card"
               >
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-square md:aspect-auto overflow-hidden">
@@ -170,7 +271,7 @@ export default function Servizi() {
       {/* PROCESS */}
       <section className="py-24 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 reveal opacity-0 translate-y-8">
+          <div className="text-center mb-16 gsap-fade-up">
             <div className="text-sm text-blue-600 font-medium mb-4">IL NOSTRO PROCESSO</div>
             <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-4">
               Come lavoriamo
@@ -184,8 +285,7 @@ export default function Servizi() {
             {processSteps.map((step, i) => (
               <div
                 key={i}
-                className="p-6 bg-white rounded-2xl hover:shadow-lg transition-shadow reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="p-6 bg-white rounded-2xl hover:shadow-lg transition-shadow process-step"
               >
                 <div className="text-blue-600 text-sm font-medium mb-4">{step.num}</div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">{step.title}</h3>
@@ -200,13 +300,13 @@ export default function Servizi() {
       <section className="py-24 lg:py-32 bg-slate-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="reveal opacity-0 translate-y-8">
+            <div className="gsap-slide-left">
               <div className="text-sm text-blue-400 font-medium mb-4">PERCHÉ SCEGLIERCI</div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
                 I nostri punti di forza
               </h2>
               <p className="text-slate-400 mb-8 leading-relaxed">
-                Oltre 40 anni di esperienza ci hanno insegnato che il successo nasce dalla collaborazione, dalla qualità e dalla flessibilità.
+                Oltre 50 anni di esperienza ci hanno insegnato che il successo nasce dalla collaborazione, dalla qualità e dalla flessibilità.
               </p>
               <Link
                 to="/contatti"
@@ -219,11 +319,11 @@ export default function Servizi() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+            <div className="grid grid-cols-2 gap-4">
               {features.map((feature, i) => (
                 <div
                   key={i}
-                  className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors"
+                  className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors feature-card"
                 >
                   <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
                   <p className="text-slate-400 text-sm">{feature.desc}</p>
@@ -236,7 +336,7 @@ export default function Servizi() {
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-slate-950">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center gsap-fade-up">
           <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
             Hai un progetto in mente?
           </h2>
@@ -254,10 +354,10 @@ export default function Servizi() {
               </svg>
             </Link>
             <a
-              href="tel:+390524123456"
+              href="tel:+39030986300"
               className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-medium border border-slate-700 hover:border-slate-600 transition-colors"
             >
-              +39 0524 123456
+              +39 030 986300
             </a>
           </div>
         </div>

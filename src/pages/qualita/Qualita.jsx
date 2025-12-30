@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../../assets/apparecchiature/imgi_16_2500x900-qualita.webp'
@@ -12,28 +16,127 @@ import filiImg from '../../assets/apparecchiature/imgi_3_fili_qualita.webp'
 export default function Qualita() {
   const location = useLocation()
   const isLanding = location.pathname === '/qualita'
-  const observerRef = useRef(null)
+  const containerRef = useRef(null)
 
   useEffect(() => {
     if (!isLanding) return
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    const ctx = gsap.context(() => {
+      // Hero animations
+      gsap.fromTo('.hero-title',
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hero-subtitle',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+      )
+      gsap.fromTo('.hero-cta',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out', delay: 0.6 }
+      )
+      gsap.fromTo('.hero-stat',
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.8 }
+      )
+
+      // Fade up sections
+      gsap.utils.toArray('.gsap-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Phase cards
+      gsap.utils.toArray('.phase-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // Quality cards
+      gsap.utils.toArray('.quality-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0, scale: 0.95 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
+
+      // Certification items
+      gsap.utils.toArray('.cert-item').forEach((el, i) => {
+        gsap.fromTo(el,
+          { x: 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
+
+      // Slide from left
+      gsap.utils.toArray('.gsap-slide-left').forEach((el) => {
+        gsap.fromTo(el,
+          { x: -60, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [isLanding])
 
   const certifications = [
@@ -81,9 +184,9 @@ export default function Qualita() {
   }
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* HERO */}
-      <section className="relative min-h-[70vh] flex items-center bg-slate-950">
+      <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
@@ -91,23 +194,23 @@ export default function Qualita() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-3 mb-8">
+            <div className="inline-flex items-center gap-3 mb-8 hero-subtitle">
               <span className="w-2 h-2 bg-blue-500 rounded-full" />
               <span className="text-slate-400 text-sm tracking-wide">Standard Certificati</span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8 hero-title">
               Qualità<br />
               <span className="text-slate-500">come garanzia</span>
             </h1>
 
-            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed">
+            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed hero-subtitle">
               L'eccellenza non è un traguardo ma un percorso quotidiano. Ogni componente che esce dai nostri stabilimenti è il risultato di processi rigorosi.
             </p>
 
             <Link
               to="/qualita/certificazioni"
-              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl font-medium transition-colors hero-cta"
             >
               Scopri le certificazioni
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,7 +226,7 @@ export default function Qualita() {
               { num: '5+', label: 'Certificazioni' },
               { num: '0.1%', label: 'Difettosità' },
             ].map((stat, i) => (
-              <div key={i} className="text-right">
+              <div key={i} className="text-right hero-stat">
                 <div className="text-3xl font-semibold text-white">{stat.num}</div>
                 <div className="text-sm text-slate-500">{stat.label}</div>
               </div>
@@ -135,7 +238,7 @@ export default function Qualita() {
       {/* PROCESS */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 reveal opacity-0 translate-y-8">
+          <div className="text-center mb-16 gsap-fade-up">
             <div className="text-sm text-blue-600 font-medium mb-4">IL NOSTRO APPROCCIO</div>
             <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
               Qualità in ogni fase
@@ -151,8 +254,7 @@ export default function Qualita() {
             ].map((phase, i) => (
               <div
                 key={i}
-                className="reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="phase-card"
               >
                 <div className="p-6 bg-slate-50 rounded-2xl hover:bg-slate-100 transition-colors h-full">
                   <div className="text-blue-600 text-sm font-medium mb-4">{phase.step}</div>
@@ -168,7 +270,7 @@ export default function Qualita() {
       {/* QUALITY AREAS */}
       <section className="py-24 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 reveal opacity-0 translate-y-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 gsap-fade-up">
             <div>
               <div className="text-sm text-blue-600 font-medium mb-4">AREE DI ECCELLENZA</div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
@@ -182,8 +284,7 @@ export default function Qualita() {
               <Link
                 key={i}
                 to={card.path}
-                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 quality-card"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -208,7 +309,7 @@ export default function Qualita() {
       <section className="py-24 lg:py-32 bg-slate-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="reveal opacity-0 translate-y-8">
+            <div className="gsap-slide-left">
               <div className="text-sm text-blue-400 font-medium mb-4">STANDARD INTERNAZIONALI</div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
                 Certificazioni riconosciute
@@ -227,11 +328,11 @@ export default function Qualita() {
               </Link>
             </div>
 
-            <div className="space-y-4 reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+            <div className="space-y-4">
               {certifications.map((cert, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-6 p-5 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors"
+                  className="flex items-center gap-6 p-5 bg-slate-800/50 rounded-2xl border border-slate-700/50 hover:border-blue-500/50 transition-colors cert-item"
                 >
                   <div className="w-14 h-14 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
                     <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -254,7 +355,7 @@ export default function Qualita() {
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-slate-950">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center gsap-fade-up">
           <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
             Vuoi conoscere i nostri standard qualitativi?
           </h2>
@@ -272,10 +373,10 @@ export default function Qualita() {
               </svg>
             </Link>
             <a
-              href="tel:+390524123456"
+              href="tel:+39030986300"
               className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-medium border border-slate-700 hover:border-slate-600 transition-colors"
             >
-              +39 0524 123456
+              +39 030 986300
             </a>
           </div>
         </div>

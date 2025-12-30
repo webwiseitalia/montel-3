@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../../assets/Produzione/imgi_3_prodotti_header_page.webp'
@@ -11,28 +15,81 @@ import sondeThumb from '../../assets/Produzione/imgi_7_sonde_di_temperatura_thum
 export default function Prodotti() {
   const location = useLocation()
   const isLanding = location.pathname === '/prodotti'
-  const observerRef = useRef(null)
+  const containerRef = useRef(null)
 
   useEffect(() => {
     if (!isLanding) return
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    const ctx = gsap.context(() => {
+      // Hero animations
+      gsap.fromTo('.hero-title',
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hero-subtitle',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+      )
+
+      // Fade up sections
+      gsap.utils.toArray('.gsap-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Product cards with stagger
+      gsap.utils.toArray('.product-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.15
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // Feature items
+      gsap.utils.toArray('.feature-item').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [isLanding])
 
   const products = [
@@ -71,9 +128,9 @@ export default function Prodotti() {
   }
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center bg-slate-950">
+      <section className="relative min-h-[60vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
@@ -81,15 +138,15 @@ export default function Prodotti() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center gap-3 mb-6 hero-subtitle">
               <span className="w-2 h-2 bg-blue-500 rounded-full" />
               <span className="text-slate-400 text-sm">Le Nostre Soluzioni</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white font-medium mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white font-medium mb-6 hero-title">
               Prodotti
             </h1>
-            <p className="text-lg text-slate-400 max-w-xl">
-              Quattro linee di prodotto sviluppate in oltre 40 anni di esperienza per i settori più esigenti.
+            <p className="text-lg text-slate-400 max-w-xl hero-subtitle">
+              Quattro linee di prodotto sviluppate in oltre 50 anni di esperienza per i settori più esigenti.
             </p>
           </div>
         </div>
@@ -98,7 +155,7 @@ export default function Prodotti() {
       {/* Intro */}
       <section className="py-16 bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-3xl reveal opacity-0 translate-y-8">
+          <div className="max-w-3xl gsap-fade-up">
             <div className="text-sm text-blue-600 font-medium mb-4">GAMMA COMPLETA</div>
             <h2 className="text-2xl lg:text-3xl font-semibold text-slate-900 mb-4">
               Soluzioni elettriche personalizzate
@@ -118,8 +175,7 @@ export default function Prodotti() {
               <Link
                 key={i}
                 to={product.path}
-                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 product-card"
               >
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-square md:aspect-auto overflow-hidden">
@@ -167,7 +223,7 @@ export default function Prodotti() {
               { label: 'Consegna rapida', icon: '⚡' },
               { label: 'Personalizzabili', icon: '⚙' },
             ].map((item, i) => (
-              <div key={i} className="reveal opacity-0 translate-y-8" style={{ animationDelay: `${i * 100}ms` }}>
+              <div key={i} className="feature-item">
                 <span className="text-2xl mb-2 block">{item.icon}</span>
                 <span className="text-slate-900 font-medium">{item.label}</span>
               </div>
@@ -178,7 +234,7 @@ export default function Prodotti() {
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-slate-950">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center gsap-fade-up">
           <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
             Cerchi una soluzione personalizzata?
           </h2>
@@ -196,7 +252,7 @@ export default function Prodotti() {
               </svg>
             </Link>
             <a
-              href="tel:+390524123456"
+              href="tel:+39030986300"
               className="inline-flex items-center gap-2 text-white px-8 py-4 rounded-xl font-medium border border-slate-700 hover:border-slate-600 transition-colors"
             >
               Chiamaci

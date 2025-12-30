@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../../assets/case history/imgi_18_2500x900-prodotti.webp'
@@ -10,29 +14,86 @@ import quadriImg from '../../assets/case history/imgi_6_quadri_elettrici_thumb_c
 export default function CaseHistory() {
   const location = useLocation()
   const isLanding = location.pathname === '/case-history'
-  const observerRef = useRef(null)
+  const containerRef = useRef(null)
   const [activeCategory, setActiveCategory] = useState('all')
 
   useEffect(() => {
     if (!isLanding) return
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    const ctx = gsap.context(() => {
+      // Hero animations
+      gsap.fromTo('.hero-title',
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hero-subtitle',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+      )
+      gsap.fromTo('.hero-stat',
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 0.8 }
+      )
+
+      // Fade up sections
+      gsap.utils.toArray('.gsap-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Case study cards
+      gsap.utils.toArray('.case-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.12
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // Category cards
+      gsap.utils.toArray('.category-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { scale: 0.9, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'back.out(1.4)',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
+          }
+        )
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [isLanding])
 
   const categories = [
@@ -103,9 +164,9 @@ export default function CaseHistory() {
   }
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* HERO */}
-      <section className="relative min-h-[70vh] flex items-center bg-slate-950">
+      <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
@@ -113,17 +174,17 @@ export default function CaseHistory() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-3 mb-8">
+            <div className="inline-flex items-center gap-3 mb-8 hero-subtitle">
               <span className="w-2 h-2 bg-blue-500 rounded-full" />
               <span className="text-slate-400 text-sm tracking-wide">Progetti Realizzati</span>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-white font-medium leading-[1.1] mb-8 hero-title">
               Case<br />
               <span className="text-slate-500">History</span>
             </h1>
 
-            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed">
+            <p className="text-lg text-slate-400 max-w-xl mb-12 leading-relaxed hero-subtitle">
               Storie di successo e soluzioni concrete. Scopri come abbiamo affrontato le sfide dei nostri clienti.
             </p>
           </div>
@@ -135,7 +196,7 @@ export default function CaseHistory() {
               { num: '100%', label: 'Soddisfazione' },
               { num: '3', label: 'Categorie' },
             ].map((stat, i) => (
-              <div key={i} className="text-right">
+              <div key={i} className="text-right hero-stat">
                 <div className="text-3xl font-semibold text-white">{stat.num}</div>
                 <div className="text-sm text-slate-500">{stat.label}</div>
               </div>
@@ -147,7 +208,7 @@ export default function CaseHistory() {
       {/* FEATURED */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 reveal opacity-0 translate-y-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 gsap-fade-up">
             <div>
               <div className="text-sm text-blue-600 font-medium mb-4">IN EVIDENZA</div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
@@ -170,8 +231,7 @@ export default function CaseHistory() {
               <Link
                 key={i}
                 to={caseStudy.path}
-                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-slate-300 hover:shadow-xl transition-all duration-300 case-card"
               >
                 <div className="grid md:grid-cols-2">
                   <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
@@ -208,7 +268,7 @@ export default function CaseHistory() {
       {/* ALL CASES */}
       <section className="py-24 lg:py-32 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 reveal opacity-0 translate-y-8">
+          <div className="text-center mb-16 gsap-fade-up">
             <div className="text-sm text-blue-600 font-medium mb-4">ARCHIVIO COMPLETO</div>
             <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-8">
               Tutti i progetti
@@ -237,8 +297,7 @@ export default function CaseHistory() {
               <Link
                 key={i}
                 to={caseStudy.path}
-                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 case-card"
               >
                 <div className="aspect-[4/3] overflow-hidden relative">
                   <img
@@ -268,7 +327,7 @@ export default function CaseHistory() {
       {/* CATEGORIES */}
       <section className="py-24 lg:py-32 bg-slate-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 reveal opacity-0 translate-y-8">
+          <div className="text-center mb-16 gsap-fade-up">
             <div className="text-sm text-blue-400 font-medium mb-4">PER CATEGORIA</div>
             <h2 className="text-3xl lg:text-4xl font-semibold text-white">
               Esplora per prodotto
@@ -284,8 +343,7 @@ export default function CaseHistory() {
               <Link
                 key={i}
                 to={category.path}
-                className="group relative aspect-[4/3] rounded-2xl overflow-hidden reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 100}ms` }}
+                className="group relative aspect-[4/3] rounded-2xl overflow-hidden category-card"
               >
                 <img
                   src={category.image}
@@ -319,7 +377,7 @@ export default function CaseHistory() {
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-slate-950">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center gsap-fade-up">
           <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
             Hai un progetto simile?
           </h2>

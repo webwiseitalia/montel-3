@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../assets/settori applicazione/imgi_2_2500x900-settori-di-applicazione.webp'
@@ -15,26 +19,80 @@ import elettrotecnica from '../assets/settori applicazione/imgi_12_elettrotecnic
 import nautica from '../assets/settori applicazione/imgi_13_nautico2.webp'
 
 export default function Settori() {
-  const observerRef = useRef(null)
+  const containerRef = useRef(null)
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    const ctx = gsap.context(() => {
+      // Hero animations
+      gsap.fromTo('.hero-title',
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hero-subtitle',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+      )
+
+      // Stats
+      gsap.utils.toArray('.stat-item').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Sector cards
+      gsap.utils.toArray('.sector-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0, scale: 0.95 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            },
+            delay: (i % 5) * 0.08
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // CTA section
+      gsap.utils.toArray('.gsap-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [])
 
   const sectors = [
@@ -51,9 +109,9 @@ export default function Settori() {
   ]
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* Hero */}
-      <section className="relative min-h-[60vh] flex items-center bg-slate-950">
+      <section className="relative min-h-[60vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
@@ -61,14 +119,14 @@ export default function Settori() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center gap-3 mb-6 hero-subtitle">
               <span className="w-2 h-2 bg-blue-500 rounded-full" />
               <span className="text-slate-400 text-sm">Dove Operiamo</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white font-medium mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white font-medium mb-6 hero-title">
               Settori
             </h1>
-            <p className="text-lg text-slate-400 max-w-xl">
+            <p className="text-lg text-slate-400 max-w-xl hero-subtitle">
               I nostri prodotti sono presenti nelle industrie più esigenti, dall'automotive all'aeronautica.
             </p>
           </div>
@@ -78,13 +136,13 @@ export default function Settori() {
       {/* Intro */}
       <section className="py-16 bg-white border-b">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-8 text-center reveal opacity-0 translate-y-8">
+          <div className="grid lg:grid-cols-3 gap-8 text-center">
             {[
               { num: '10+', label: 'Settori industriali' },
               { num: '500+', label: 'Clienti attivi' },
-              { num: '45+', label: 'Anni di esperienza' },
+              { num: '50+', label: 'Anni di esperienza' },
             ].map((stat, i) => (
-              <div key={i}>
+              <div key={i} className="stat-item">
                 <div className="text-3xl font-semibold text-slate-900 mb-1">{stat.num}</div>
                 <div className="text-sm text-slate-500">{stat.label}</div>
               </div>
@@ -100,8 +158,7 @@ export default function Settori() {
             {sectors.map((sector, i) => (
               <div
                 key={i}
-                className="group bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-all reveal opacity-0 translate-y-8"
-                style={{ animationDelay: `${i * 50}ms` }}
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-all sector-card"
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
@@ -122,7 +179,7 @@ export default function Settori() {
 
       {/* CTA */}
       <section className="py-24 lg:py-32 bg-slate-950">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center gsap-fade-up">
           <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
             Il tuo settore non è in elenco?
           </h2>

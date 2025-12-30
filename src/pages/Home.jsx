@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../assets/Produzione/imgi_2_2500x900-prodotti.webp'
@@ -12,48 +15,174 @@ import quadriThumb from '../assets/Produzione/imgi_6_quadri_elettrici_thumb.webp
 import sondeThumb from '../assets/Produzione/imgi_7_sonde_di_temperatura_thumb.webp'
 
 export default function Home() {
+  const containerRef = useRef(null)
   const heroRef = useRef(null)
-  const titleRef = useRef(null)
-  const observerRef = useRef(null)
 
+  // Hero animations on mount
   useEffect(() => {
-    // GSAP Hero Animation
     const ctx = gsap.context(() => {
-      gsap.fromTo('.hero-line',
-        { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out', delay: 0.3 }
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+      tl.fromTo('.hero-line',
+        { y: 120, opacity: 0, rotateX: -40 },
+        { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.1 },
+        0.2
       )
-      gsap.fromTo('.hero-fade',
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power2.out', delay: 0.8 }
+      .fromTo('.hero-fade',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, stagger: 0.15 },
+        0.7
       )
-      gsap.fromTo('.hero-stat',
-        { x: 30, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: 'power2.out', delay: 1.2 }
+      .fromTo('.hero-stat',
+        { x: 50, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.7, stagger: 0.1 },
+        1
+      )
+      .fromTo('.hero-bottom',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 },
+        1.2
       )
     }, heroRef)
 
     return () => ctx.revert()
   }, [])
 
+  // Scroll animations
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    const ctx = gsap.context(() => {
+      // Fade up sections
+      gsap.utils.toArray('.anim-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 80, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+            }
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Slide from left
+      gsap.utils.toArray('.anim-slide-left').forEach((el) => {
+        gsap.fromTo(el,
+          { x: -100, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+            }
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // Slide from right
+      gsap.utils.toArray('.anim-slide-right').forEach((el) => {
+        gsap.fromTo(el,
+          { x: 100, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+            }
+          }
+        )
+      })
+
+      // Scale in
+      gsap.utils.toArray('.anim-scale').forEach((el) => {
+        gsap.fromTo(el,
+          { scale: 0.85, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'back.out(1.4)',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+            }
+          }
+        )
+      })
+
+      // Staggered items
+      gsap.utils.toArray('.anim-stagger').forEach((parent) => {
+        gsap.fromTo(parent.children,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: parent,
+              start: 'top 85%',
+            }
+          }
+        )
+      })
+
+      // Image reveal
+      gsap.utils.toArray('.anim-img-reveal').forEach((el) => {
+        const img = el.querySelector('img')
+        if (img) {
+          gsap.fromTo(el,
+            { clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' },
+            {
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+              duration: 1.2,
+              ease: 'power4.inOut',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+              }
+            }
+          )
+          gsap.fromTo(img,
+            { scale: 1.4 },
+            {
+              scale: 1,
+              duration: 1.4,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+              }
+            }
+          )
+        }
+      })
+
+      // Parallax background number
+      gsap.to('.parallax-bg', {
+        yPercent: -20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.parallax-bg',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [])
 
   const products = [
@@ -89,7 +218,7 @@ export default function Home() {
   ]
 
   return (
-    <div className="bg-white">
+    <div ref={containerRef} className="bg-white">
       {/* HERO */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background */}
@@ -110,7 +239,7 @@ export default function Home() {
         {/* Content */}
         <div className="relative w-full max-w-[1400px] mx-auto px-6 lg:px-12 py-32">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-8" ref={titleRef}>
+            <div className="lg:col-span-8">
               {/* Eyebrow */}
               <div className="hero-fade flex items-center gap-4 mb-10">
                 <div className="h-px w-16 bg-gradient-to-r from-blue-400 to-transparent" />
@@ -120,7 +249,7 @@ export default function Home() {
               </div>
 
               {/* Title */}
-              <h1 className="mb-10 overflow-hidden">
+              <h1 className="mb-10 perspective-1000">
                 <span className="hero-line block text-white text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] font-light tracking-tight leading-[1]">
                   Apparecchiature
                 </span>
@@ -186,7 +315,7 @@ export default function Home() {
         </div>
 
         {/* Bottom Sectors Bar */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/40 backdrop-blur-sm">
+        <div className="hero-bottom absolute bottom-0 left-0 right-0 border-t border-white/10 bg-black/40 backdrop-blur-sm">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-12 py-5">
             <div className="flex items-center gap-8">
               <span className="text-white/30 text-xs uppercase tracking-widest whitespace-nowrap hidden sm:block">
@@ -209,13 +338,13 @@ export default function Home() {
       {/* CHI SIAMO */}
       <section className="py-32 lg:py-40 bg-white relative overflow-hidden">
         {/* Background Year */}
-        <div className="absolute top-1/2 right-0 -translate-y-1/2 text-[35vw] font-bold text-gray-50 leading-none pointer-events-none select-none">
+        <div className="parallax-bg absolute top-1/2 right-0 -translate-y-1/2 text-[35vw] font-bold text-gray-50 leading-none pointer-events-none select-none">
           72
         </div>
 
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-            <div className="lg:col-span-5 reveal opacity-0 translate-y-8">
+            <div className="lg:col-span-5 anim-slide-left">
               <span className="inline-flex items-center gap-3 text-sm font-medium text-gray-400 uppercase tracking-widest mb-8">
                 <span className="w-10 h-px bg-blue-500" />
                 Chi siamo
@@ -246,17 +375,19 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="lg:col-span-7 reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+            <div className="lg:col-span-7 anim-slide-right">
               <div className="relative">
-                <img
-                  src={aboutImage}
-                  alt="Stabilimento Mont.El"
-                  className="w-full aspect-[4/3] object-cover"
-                />
+                <div className="anim-img-reveal overflow-hidden">
+                  <img
+                    src={aboutImage}
+                    alt="Stabilimento Mont.El"
+                    className="w-full aspect-[4/3] object-cover"
+                  />
+                </div>
                 {/* Decorative Frame */}
                 <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-blue-500/20 -z-10" />
                 {/* Founder Card */}
-                <div className="absolute -bottom-12 -left-8 lg:-left-12 bg-gray-900 text-white p-8 max-w-xs">
+                <div className="anim-scale absolute -bottom-12 -left-8 lg:-left-12 bg-gray-900 text-white p-8 max-w-xs">
                   <div className="text-3xl font-light mb-2">Giuseppe Novali</div>
                   <div className="text-white/50 text-sm uppercase tracking-wider">Fondatore</div>
                 </div>
@@ -278,7 +409,7 @@ export default function Home() {
 
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12">
           {/* Header */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 reveal opacity-0 translate-y-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20 anim-fade-up">
             <div className="max-w-2xl">
               <span className="inline-flex items-center gap-3 text-sm font-medium text-blue-400 uppercase tracking-widest mb-8">
                 <span className="w-10 h-px bg-blue-500" />
@@ -305,11 +436,11 @@ export default function Home() {
           </div>
 
           {/* Products Grid */}
-          <div className="grid lg:grid-cols-12 gap-5">
+          <div className="grid lg:grid-cols-12 gap-5 anim-stagger">
             {/* Featured Product */}
             <Link
               to={products[0].path}
-              className="lg:col-span-7 group relative overflow-hidden reveal opacity-0 translate-y-8"
+              className="lg:col-span-7 group relative overflow-hidden"
             >
               <div className="aspect-[16/10] lg:aspect-[16/12] relative">
                 <img
@@ -342,8 +473,7 @@ export default function Home() {
                 <Link
                   key={i}
                   to={product.path}
-                  className="group relative overflow-hidden flex-1 reveal opacity-0 translate-y-8"
-                  style={{ animationDelay: `${(i + 1) * 100}ms` }}
+                  className="group relative overflow-hidden flex-1"
                 >
                   <div className="h-full relative min-h-[180px]">
                     <img
@@ -374,7 +504,7 @@ export default function Home() {
       {/* QUALITÀ */}
       <section className="relative min-h-screen flex">
         {/* Left Image */}
-        <div className="hidden lg:block lg:w-1/2 relative">
+        <div className="hidden lg:block lg:w-1/2 relative anim-img-reveal overflow-hidden">
           <img
             src={qualityImage}
             alt="Controllo qualità"
@@ -385,21 +515,21 @@ export default function Home() {
         {/* Right Content */}
         <div className="w-full lg:w-1/2 bg-white flex items-center">
           <div className="w-full max-w-2xl mx-auto px-6 lg:px-12 xl:px-20 py-32">
-            <span className="inline-flex items-center gap-3 text-sm font-medium text-gray-400 uppercase tracking-widest mb-8 reveal opacity-0 translate-y-8">
+            <span className="inline-flex items-center gap-3 text-sm font-medium text-gray-400 uppercase tracking-widest mb-8 anim-fade-up">
               <span className="w-10 h-px bg-blue-500" />
               Qualità
             </span>
-            <h2 className="text-4xl lg:text-5xl font-light text-gray-900 leading-[1.1] mb-8 reveal opacity-0 translate-y-8">
+            <h2 className="text-4xl lg:text-5xl font-light text-gray-900 leading-[1.1] mb-8 anim-fade-up">
               Standard qualitativi
               <span className="block font-semibold">certificati</span>
             </h2>
-            <p className="text-xl text-gray-500 leading-relaxed mb-12 reveal opacity-0 translate-y-8">
+            <p className="text-xl text-gray-500 leading-relaxed mb-12 anim-fade-up">
               Controlli rigorosi su ogni prodotto prima della consegna.
               Certificazioni industriali e di processo conformi agli standard internazionali.
             </p>
 
             {/* Certifications */}
-            <div className="space-y-4 mb-12">
+            <div className="space-y-4 mb-12 anim-stagger">
               {[
                 { name: 'ISO 9001', desc: 'Sistema di gestione qualità' },
                 { name: 'Controllo 100%', desc: 'Test su ogni singolo prodotto' },
@@ -407,8 +537,7 @@ export default function Home() {
               ].map((cert, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-6 p-5 border-l-2 border-blue-500 bg-gray-50 reveal opacity-0 translate-y-8"
-                  style={{ animationDelay: `${i * 100}ms` }}
+                  className="flex items-center gap-6 p-5 border-l-2 border-blue-500 bg-gray-50"
                 >
                   <div className="flex-1">
                     <div className="text-lg font-medium text-gray-900">{cert.name}</div>
@@ -423,7 +552,7 @@ export default function Home() {
 
             <Link
               to="/qualita"
-              className="inline-flex items-center gap-3 text-gray-900 font-medium group reveal opacity-0 translate-y-8"
+              className="inline-flex items-center gap-3 text-gray-900 font-medium group anim-fade-up"
             >
               <span>Scopri certificazioni e brevetti</span>
               <span className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-all">
@@ -445,17 +574,17 @@ export default function Home() {
         </div>
 
         <div className="relative max-w-[1400px] mx-auto px-6 lg:px-12 text-center">
-          <h2 className="text-4xl lg:text-6xl xl:text-7xl font-light text-white leading-[1.1] mb-8 reveal opacity-0 translate-y-8">
+          <h2 className="text-4xl lg:text-6xl xl:text-7xl font-light text-white leading-[1.1] mb-8 anim-fade-up">
             Hai un progetto
             <span className="block font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
               da realizzare?
             </span>
           </h2>
-          <p className="text-xl text-white/50 max-w-2xl mx-auto mb-12 reveal opacity-0 translate-y-8">
+          <p className="text-xl text-white/50 max-w-2xl mx-auto mb-12 anim-fade-up">
             Contattaci per una consulenza. Il nostro team tecnico è pronto
             ad assisterti nella progettazione e produzione.
           </p>
-          <div className="flex flex-wrap justify-center gap-6 reveal opacity-0 translate-y-8">
+          <div className="flex flex-wrap justify-center gap-6 anim-fade-up">
             <Link
               to="/contatti"
               className="group inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 font-medium hover:bg-blue-500 hover:text-white transition-colors"

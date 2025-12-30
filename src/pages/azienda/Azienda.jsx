@@ -1,5 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 // Images
 import heroImage from '../../assets/sviluppo/imgi_2_2500x900-azienda.webp'
@@ -9,26 +13,134 @@ import produzioneImg from '../../assets/sviluppo/imgi_4_progettazione.webp'
 export default function Azienda() {
   const location = useLocation()
   const isLanding = location.pathname === '/azienda'
-  const observerRef = useRef(null)
+  const containerRef = useRef(null)
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-up')
-            entry.target.classList.remove('opacity-0', 'translate-y-8')
+    if (!isLanding) return
+
+    const ctx = gsap.context(() => {
+      // Hero animations
+      gsap.fromTo('.hero-title',
+        { y: 60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hero-subtitle',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.4 }
+      )
+
+      // Stats counter animation
+      gsap.utils.toArray('.stat-item').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.1
           }
-        })
-      },
-      { threshold: 0.1 }
-    )
+        )
+      })
 
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observerRef.current.observe(el)
-    })
+      // Fade up sections
+      gsap.utils.toArray('.gsap-fade-up').forEach((el) => {
+        gsap.fromTo(el,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
 
-    return () => observerRef.current?.disconnect()
+      // Slide from left
+      gsap.utils.toArray('.gsap-slide-left').forEach((el) => {
+        gsap.fromTo(el,
+          { x: -60, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
+
+      // Slide from right
+      gsap.utils.toArray('.gsap-slide-right').forEach((el) => {
+        gsap.fromTo(el,
+          { x: 60, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
+
+      // Scale up
+      gsap.utils.toArray('.gsap-scale').forEach((el, i) => {
+        gsap.fromTo(el,
+          { scale: 0.9, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.6,
+            ease: 'back.out(1.4)',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            },
+            delay: i * 0.08
+          }
+        )
+      })
+
+      // Image reveal
+      gsap.utils.toArray('.gsap-img-reveal').forEach((el) => {
+        gsap.fromTo(el,
+          { clipPath: 'inset(0 100% 0 0)' },
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1,
+            ease: 'power4.inOut',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 80%',
+              toggleActions: 'play none none none'
+            }
+          }
+        )
+      })
+
+    }, containerRef)
+
+    return () => ctx.revert()
   }, [isLanding])
 
   const subPages = [
@@ -37,23 +149,23 @@ export default function Azienda() {
   ]
 
   const stats = [
-    { value: '1979', label: 'Anno di fondazione' },
+    { value: '1972', label: 'Anno di fondazione' },
     { value: '200+', label: 'Collaboratori' },
     { value: '3', label: 'Stabilimenti' },
-    { value: '45+', label: 'Anni di esperienza' },
+    { value: '50+', label: 'Anni di esperienza' },
   ]
 
   const milestones = [
-    { year: '1979', title: 'Fondazione', desc: 'Nasce Mont.El a Fidenza' },
+    { year: '1972', title: 'Fondazione', desc: 'Giuseppe Novali fonda Mont.El a Sale Marasino' },
     { year: '1995', title: 'ISO 9001', desc: 'Prima certificazione qualità' },
     { year: '2005', title: 'Romania', desc: 'Apertura stabilimento estero' },
     { year: '2015', title: 'IATF 16949', desc: 'Certificazione automotive' },
   ]
 
   return (
-    <div>
+    <div ref={containerRef}>
       {/* Hero */}
-      <section className="relative min-h-[70vh] flex items-center bg-slate-950">
+      <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
@@ -61,15 +173,15 @@ export default function Azienda() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 lg:px-8 py-32">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-3 mb-6">
+            <div className="inline-flex items-center gap-3 mb-6 hero-subtitle">
               <span className="w-2 h-2 bg-blue-500 rounded-full" />
               <span className="text-slate-400 text-sm">Il Gruppo Mont.El</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white font-medium mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white font-medium mb-6 hero-title">
               Azienda
             </h1>
-            <p className="text-lg text-slate-400 max-w-xl">
-              Un gruppo industriale italiano specializzato nella progettazione e produzione di componenti elettrici dal 1979.
+            <p className="text-lg text-slate-400 max-w-xl hero-subtitle">
+              Un gruppo industriale italiano specializzato nella progettazione e produzione di componenti elettrici dal 1972.
             </p>
           </div>
         </div>
@@ -114,7 +226,7 @@ export default function Azienda() {
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, i) => (
-                  <div key={i} className="text-center">
+                  <div key={i} className="text-center stat-item">
                     <div className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-1">{stat.value}</div>
                     <div className="text-sm text-slate-500">{stat.label}</div>
                   </div>
@@ -127,16 +239,16 @@ export default function Azienda() {
           <section className="py-24 lg:py-32 bg-white">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div className="reveal opacity-0 translate-y-8">
+                <div className="gsap-slide-left">
                   <div className="text-sm text-blue-600 font-medium mb-4">LA NOSTRA STORIA</div>
                   <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-6">
                     Un percorso di crescita continua
                   </h2>
                   <p className="text-slate-600 mb-6 leading-relaxed">
-                    Mont.El è un gruppo industriale italiano specializzato nella progettazione e produzione di sensori, cablaggi elettrici, quadri e sonde di temperatura.
+                    Fondata nel 1972 da Giuseppe Novali a Sale Marasino, Mont.El è un gruppo industriale italiano specializzato nella progettazione e produzione di sensori, cablaggi elettrici, quadri e sonde di temperatura.
                   </p>
                   <p className="text-slate-500 mb-8 leading-relaxed">
-                    Con stabilimenti in Italia e Romania, serviamo clienti in tutto il mondo nei settori automotive, aeronautico, navale, medicale e industriale.
+                    Con stabilimenti in Italia e Romania, serviamo clienti in tutto il mondo nei settori automotive, aeronautico, nautico, medicale e industriale.
                   </p>
                   <Link
                     to="/azienda/punti-di-forza"
@@ -149,8 +261,8 @@ export default function Azienda() {
                   </Link>
                 </div>
 
-                <div className="reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
-                  <img src={aziendaImg} alt="Stabilimento" className="w-full rounded-2xl" />
+                <div className="gsap-img-reveal overflow-hidden rounded-2xl">
+                  <img src={aziendaImg} alt="Stabilimento" className="w-full" />
                 </div>
               </div>
             </div>
@@ -159,7 +271,7 @@ export default function Azienda() {
           {/* Timeline */}
           <section className="py-24 lg:py-32 bg-slate-50">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-              <div className="text-center mb-16 reveal opacity-0 translate-y-8">
+              <div className="text-center mb-16 gsap-fade-up">
                 <div className="text-sm text-blue-600 font-medium mb-4">TIMELINE</div>
                 <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900">
                   Le tappe principali
@@ -170,8 +282,7 @@ export default function Azienda() {
                 {milestones.map((item, i) => (
                   <div
                     key={i}
-                    className="bg-white p-6 rounded-2xl reveal opacity-0 translate-y-8"
-                    style={{ animationDelay: `${i * 100}ms` }}
+                    className="bg-white p-6 rounded-2xl gsap-scale"
                   >
                     <div className="text-3xl font-semibold text-blue-600 mb-2">{item.year}</div>
                     <div className="font-semibold text-slate-900 mb-1">{item.title}</div>
@@ -186,11 +297,11 @@ export default function Azienda() {
           <section className="py-24 lg:py-32 bg-slate-900">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
-                <div className="reveal opacity-0 translate-y-8">
-                  <img src={produzioneImg} alt="Produzione" className="w-full rounded-2xl" />
+                <div className="gsap-img-reveal overflow-hidden rounded-2xl">
+                  <img src={produzioneImg} alt="Produzione" className="w-full" />
                 </div>
 
-                <div className="reveal opacity-0 translate-y-8" style={{ animationDelay: '100ms' }}>
+                <div className="gsap-slide-right">
                   <div className="text-sm text-blue-400 font-medium mb-4">NETWORK</div>
                   <h2 className="text-3xl lg:text-4xl font-semibold text-white mb-6">
                     Presenza internazionale
@@ -214,7 +325,7 @@ export default function Azienda() {
 
           {/* CTA */}
           <section className="py-24 lg:py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center reveal opacity-0 translate-y-8">
+            <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center gsap-fade-up">
               <h2 className="text-3xl lg:text-4xl font-semibold text-slate-900 mb-6">
                 Vuoi saperne di più?
               </h2>
