@@ -132,7 +132,7 @@ export default function Prodotti() {
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Prodotti Mont.El - Sensori, Cablaggi, Quadri, Sonde" title="Prodotti Mont.El" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
@@ -182,6 +182,10 @@ export default function Prodotti() {
                     <img
                       src={product.image}
                       alt={product.title}
+                      title={product.title}
+                      loading="lazy"
+                      width={600}
+                      height={600}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>

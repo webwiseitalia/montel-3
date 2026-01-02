@@ -175,7 +175,7 @@ export default function Servizi() {
       {/* HERO */}
       <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Servizi Mont.El - Partner completo" title="Servizi Mont.El" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
@@ -245,7 +245,11 @@ export default function Servizi() {
                   <div className="aspect-square md:aspect-auto overflow-hidden">
                     <img
                       src={service.image}
-                      alt={service.title}
+                      alt={`Servizio ${service.title} - Mont.El`}
+                      title={service.title}
+                      loading="lazy"
+                      width={600}
+                      height={600}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>

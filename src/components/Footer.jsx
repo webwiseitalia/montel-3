@@ -1,6 +1,13 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Footer() {
+  const navigate = useNavigate()
+
+  const handleLinkClick = (path) => (e) => {
+    e.preventDefault()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setTimeout(() => navigate(path), 100)
+  }
   const quickLinks = [
     { name: 'Azienda', path: '/azienda' },
     { name: 'Prodotti', path: '/prodotti' },
@@ -42,7 +49,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             {/* Company Info */}
             <div className="lg:col-span-4">
-              <Link to="/" className="inline-block mb-6">
+              <Link to="/" onClick={handleLinkClick('/')} className="inline-block mb-6">
                 <span className="text-2xl font-semibold text-white tracking-wide">
                   MONTEL
                 </span>
@@ -96,6 +103,7 @@ export default function Footer() {
                       <li key={link.path}>
                         <Link
                           to={link.path}
+                          onClick={handleLinkClick(link.path)}
                           className="text-sm text-gray-400 hover:text-white transition-colors"
                         >
                           {link.name}
@@ -115,6 +123,7 @@ export default function Footer() {
                       <li key={link.path}>
                         <Link
                           to={link.path}
+                          onClick={handleLinkClick(link.path)}
                           className="text-sm text-gray-400 hover:text-white transition-colors"
                         >
                           {link.name}
@@ -134,6 +143,7 @@ export default function Footer() {
                       <li key={link.path}>
                         <Link
                           to={link.path}
+                          onClick={handleLinkClick(link.path)}
                           className="text-sm text-gray-400 hover:text-white transition-colors"
                         >
                           {link.name}
@@ -153,6 +163,7 @@ export default function Footer() {
                   </p>
                   <Link
                     to="/contatti"
+                    onClick={handleLinkClick('/contatti')}
                     className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 text-sm font-medium hover:bg-blue-500 hover:text-white transition-colors"
                   >
                     Richiedi info
@@ -178,6 +189,7 @@ export default function Footer() {
                 <Link
                   key={link.path}
                   to={link.path}
+                  onClick={handleLinkClick(link.path)}
                   className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
                 >
                   {link.name}

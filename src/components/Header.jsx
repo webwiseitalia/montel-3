@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import logo from '../assets/imgi_1_logo.webp'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -40,9 +41,11 @@ export default function Header() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
-            <span className="text-xl font-semibold text-white tracking-wide">
-              MONTEL
-            </span>
+            <img
+              src={logo}
+              alt="Mont.El - electronic wiring equipment"
+              className="h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

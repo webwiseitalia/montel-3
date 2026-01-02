@@ -38,7 +38,10 @@ export default function Produzione() {
       <section className="relative h-[50vh] min-h-[400px] overflow-hidden">
         <img
           src={stabilimentoImg}
-          alt="Produzione Mont.El"
+          alt="Produzione Mont.El - Stabilimenti"
+          title="Produzione Mont.El"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -88,7 +91,11 @@ export default function Produzione() {
             <div className="lg:col-span-7">
               <img
                 src={heroImage}
-                alt="Stabilimento produttivo"
+                alt="Stabilimento produttivo Mont.El"
+                title="Stabilimento produttivo"
+                loading="lazy"
+                width={1300}
+                height={900}
                 className="rounded-3xl shadow-2xl w-full"
               />
             </div>
@@ -130,12 +137,20 @@ export default function Produzione() {
           <div className="grid lg:grid-cols-2 gap-8 mb-12">
             <img
               src={apparecchiaturaImg}
-              alt="Macchinari produzione"
+              alt="Macchinari produzione Mont.El"
+              title="Macchinari produzione"
+              loading="lazy"
+              width={600}
+              height={450}
               className="rounded-2xl shadow-lg w-full aspect-[4/3] object-cover"
             />
             <img
               src={processoImg}
-              alt="Processo produttivo"
+              alt="Processo produttivo Mont.El"
+              title="Processo produttivo"
+              loading="lazy"
+              width={600}
+              height={450}
               className="rounded-2xl shadow-lg w-full aspect-[4/3] object-cover"
             />
           </div>
@@ -158,7 +173,11 @@ export default function Produzione() {
             <div className="order-2 lg:order-1">
               <img
                 src={stabilimentoImg}
-                alt="Controllo qualità"
+                alt="Controllo qualità Mont.El"
+                title="Controllo qualità"
+                loading="lazy"
+                width={2500}
+                height={900}
                 className="rounded-3xl shadow-xl w-full"
               />
             </div>

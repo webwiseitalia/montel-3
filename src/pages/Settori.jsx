@@ -113,7 +113,7 @@ export default function Settori() {
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Settori di applicazione Mont.El" title="Settori di applicazione" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
@@ -163,7 +163,11 @@ export default function Settori() {
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={sector.image}
-                    alt={sector.name}
+                    alt={`Settore ${sector.name} - Mont.El`}
+                    title={sector.name}
+                    loading="lazy"
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>

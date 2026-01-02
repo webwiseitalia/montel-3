@@ -167,7 +167,7 @@ export default function Azienda() {
       {/* Hero */}
       <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Azienda Mont.El - Gruppo industriale italiano" title="Mont.El Azienda" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
@@ -262,7 +262,7 @@ export default function Azienda() {
                 </div>
 
                 <div className="gsap-img-reveal overflow-hidden rounded-2xl">
-                  <img src={aziendaImg} alt="Stabilimento" className="w-full" />
+                  <img src={aziendaImg} alt="Stabilimento Mont.El a Sale Marasino" title="Stabilimento Mont.El" loading="lazy" width={1300} height={900} className="w-full" />
                 </div>
               </div>
             </div>
@@ -298,7 +298,7 @@ export default function Azienda() {
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-16 items-center">
                 <div className="gsap-img-reveal overflow-hidden rounded-2xl">
-                  <img src={produzioneImg} alt="Produzione" className="w-full" />
+                  <img src={produzioneImg} alt="Produzione Mont.El - Network internazionale" title="Produzione Mont.El" loading="lazy" width={800} height={600} className="w-full" />
                 </div>
 
                 <div className="gsap-slide-right">

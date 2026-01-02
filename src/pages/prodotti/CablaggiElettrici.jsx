@@ -69,6 +69,9 @@ export default function CablaggiElettrici() {
         <img
           src={heroImage}
           alt="Cablaggi Elettrici Mont.El"
+          title="Cablaggi Elettrici"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -121,16 +124,20 @@ export default function CablaggiElettrici() {
                 <img
                   src={cablaggiMain}
                   alt="Cablaggi elettrici Mont.El"
+                  title="Cablaggi elettrici"
+                  loading="lazy"
+                  width={800}
+                  height={450}
                   className="w-full aspect-video object-cover"
                 />
               </div>
 
               {/* Gallery Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                <img src={cab1} alt="Cablaggio 1" className="rounded-2xl w-full aspect-square object-cover" />
-                <img src={cab2} alt="Cablaggio 2" className="rounded-2xl w-full aspect-square object-cover" />
-                <img src={cab4} alt="Cablaggio 3" className="rounded-2xl w-full aspect-square object-cover" />
-                <img src={cab5} alt="Cablaggio 4" className="rounded-2xl w-full aspect-square object-cover" />
+                <img src={cab1} alt="Cablaggio elettrico esempio 1" title="Cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
+                <img src={cab2} alt="Cablaggio elettrico esempio 2" title="Cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
+                <img src={cab4} alt="Cablaggio elettrico esempio 3" title="Cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
+                <img src={cab5} alt="Cablaggio elettrico esempio 4" title="Cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
               </div>
 
               {/* Codesign */}
@@ -151,8 +158,8 @@ export default function CablaggiElettrici() {
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <img src={cabDetail1} alt="Dettaglio cablaggio" className="rounded-2xl w-full aspect-square object-cover" />
-                    <img src={cabDetail2} alt="Dettaglio cablaggio" className="rounded-2xl w-full aspect-square object-cover" />
+                    <img src={cabDetail1} alt="Dettaglio cablaggio elettrico" title="Dettaglio cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
+                    <img src={cabDetail2} alt="Dettaglio cablaggio elettrico" title="Dettaglio cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
                   </div>
                 </div>
               </div>
@@ -193,8 +200,8 @@ export default function CablaggiElettrici() {
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <img src={cab6} alt="Applicazione cablaggio" className="rounded-2xl w-full aspect-square object-cover" />
-                    <img src={cabDetail3} alt="Applicazione cablaggio" className="rounded-2xl w-full aspect-square object-cover" />
+                    <img src={cab6} alt="Applicazione cablaggio industriale" title="Applicazione cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
+                    <img src={cabDetail3} alt="Applicazione cablaggio industriale" title="Applicazione cablaggio" loading="lazy" width={300} height={300} className="rounded-2xl w-full aspect-square object-cover" />
                   </div>
                 </div>
               </div>

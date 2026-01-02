@@ -225,7 +225,10 @@ export default function Home() {
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt=""
+            alt="Produzione apparecchiature elettroelettroniche Mont.El"
+            title="Produzione Mont.El"
+            width={2500}
+            height={900}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
@@ -380,7 +383,11 @@ export default function Home() {
                 <div className="anim-img-reveal overflow-hidden">
                   <img
                     src={aboutImage}
-                    alt="Stabilimento Mont.El"
+                    alt="Stabilimento Mont.El a Sale Marasino"
+                    title="Stabilimento Mont.El"
+                    loading="lazy"
+                    width={1300}
+                    height={900}
                     className="w-full aspect-[4/3] object-cover"
                   />
                 </div>
@@ -446,6 +453,10 @@ export default function Home() {
                 <img
                   src={products[0].image}
                   alt={products[0].title}
+                  title={products[0].title}
+                  loading="lazy"
+                  width={800}
+                  height={600}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
@@ -479,6 +490,10 @@ export default function Home() {
                     <img
                       src={product.image}
                       alt={product.title}
+                      title={product.title}
+                      loading="lazy"
+                      width={800}
+                      height={600}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
@@ -507,7 +522,11 @@ export default function Home() {
         <div className="hidden lg:block lg:w-1/2 relative anim-img-reveal overflow-hidden">
           <img
             src={qualityImage}
-            alt="Controllo qualità"
+            alt="Controllo qualità Mont.El"
+            title="Controllo qualità"
+            loading="lazy"
+            width={1300}
+            height={900}
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>

@@ -28,6 +28,9 @@ export default function QuadriElettrici() {
         <img
           src={heroImage}
           alt="Quadri Elettrici Mont.El"
+          title="Quadri Elettrici"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -80,6 +83,10 @@ export default function QuadriElettrici() {
                 <img
                   src={quadriMain}
                   alt="Quadri elettrici Mont.El"
+                  title="Quadri elettrici"
+                  loading="lazy"
+                  width={800}
+                  height={450}
                   className="w-full aspect-video object-cover"
                 />
               </div>
@@ -115,7 +122,11 @@ export default function QuadriElettrici() {
                 <div className="grid lg:grid-cols-2 gap-8 items-center">
                   <img
                     src={quadriDetail}
-                    alt="Dettaglio quadro elettrico"
+                    alt="Dettaglio quadro elettrico Mont.El"
+                    title="Dettaglio quadro elettrico"
+                    loading="lazy"
+                    width={600}
+                    height={450}
                     className="rounded-2xl w-full aspect-[4/3] object-cover"
                   />
                   <div>

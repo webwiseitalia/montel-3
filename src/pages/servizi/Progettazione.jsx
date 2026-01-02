@@ -35,6 +35,9 @@ export default function Progettazione() {
         <img
           src={heroImage}
           alt="Progettazione Mont.El"
+          title="Progettazione"
+          width={800}
+          height={600}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -107,12 +110,20 @@ export default function Progettazione() {
             <div className="lg:col-span-7 space-y-6">
               <img
                 src={heroImage}
-                alt="Ufficio tecnico"
+                alt="Ufficio tecnico Mont.El"
+                title="Ufficio tecnico"
+                loading="lazy"
+                width={800}
+                height={600}
                 className="rounded-3xl shadow-xl w-full"
               />
               <img
                 src={teamImg}
-                alt="Team di progettazione"
+                alt="Team di progettazione Mont.El"
+                title="Team di progettazione"
+                loading="lazy"
+                width={600}
+                height={450}
                 className="rounded-3xl shadow-lg w-full"
               />
             </div>

@@ -47,6 +47,9 @@ export default function SondeTemperatura() {
         <img
           src={heroImage}
           alt="Sonde di Temperatura Mont.El"
+          title="Sonde di Temperatura"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -99,6 +102,10 @@ export default function SondeTemperatura() {
                 <img
                   src={sondeMain}
                   alt="Sonde di temperatura Mont.El"
+                  title="Sonde di temperatura"
+                  loading="lazy"
+                  width={800}
+                  height={450}
                   className="w-full aspect-video object-cover"
                 />
               </div>
@@ -170,6 +177,10 @@ export default function SondeTemperatura() {
                   <img
                     src={sondeDetail}
                     alt="Applicazioni sonde temperatura"
+                    title="Applicazioni sonde"
+                    loading="lazy"
+                    width={400}
+                    height={400}
                     className="rounded-2xl w-full aspect-square object-cover"
                   />
                 </div>

@@ -1,0 +1,15 @@
+# Robots.txt per Mont.El S.r.l.
+# https://www.montel.it/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.montel.it/sitemap.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /api/
+Disallow: /admin/
+
+# Crawl delay suggestion
+Crawl-delay: 1

@@ -168,7 +168,7 @@ export default function CaseHistory() {
       {/* HERO */}
       <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Case History Mont.El - Progetti realizzati" title="Case History Mont.El" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
@@ -238,6 +238,10 @@ export default function CaseHistory() {
                     <img
                       src={caseStudy.image}
                       alt={caseStudy.title}
+                      title={caseStudy.title}
+                      loading="lazy"
+                      width={600}
+                      height={450}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -303,6 +307,10 @@ export default function CaseHistory() {
                   <img
                     src={caseStudy.image}
                     alt={caseStudy.title}
+                    title={caseStudy.title}
+                    loading="lazy"
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
@@ -348,6 +356,10 @@ export default function CaseHistory() {
                 <img
                   src={category.image}
                   alt={category.title}
+                  title={category.title}
+                  loading="lazy"
+                  width={500}
+                  height={375}
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />

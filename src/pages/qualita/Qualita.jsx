@@ -188,7 +188,7 @@ export default function Qualita() {
       {/* HERO */}
       <section className="relative min-h-[70vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="" className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Qualità Mont.El - Standard certificati" title="Qualità Mont.El" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 
@@ -289,7 +289,11 @@ export default function Qualita() {
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={card.image}
-                    alt={card.title}
+                    alt={`${card.title} - Mont.El`}
+                    title={card.title}
+                    loading="lazy"
+                    width={600}
+                    height={450}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>

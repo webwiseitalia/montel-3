@@ -27,6 +27,9 @@ export default function SensoriLivelloCarburante() {
         <img
           src={heroImage}
           alt="Sensori di Livello Carburante Mont.El"
+          title="Sensori di Livello Carburante"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -79,6 +82,10 @@ export default function SensoriLivelloCarburante() {
                 <img
                   src={sensoriMain}
                   alt="Sensori di livello carburante Mont.El"
+                  title="Sensori di livello carburante"
+                  loading="lazy"
+                  width={800}
+                  height={450}
                   className="w-full aspect-video object-cover"
                 />
               </div>
@@ -139,7 +146,11 @@ export default function SensoriLivelloCarburante() {
                   </div>
                   <img
                     src={sensoriDetail}
-                    alt="Funzionamento sensori"
+                    alt="Funzionamento sensori di livello"
+                    title="Funzionamento sensori"
+                    loading="lazy"
+                    width={400}
+                    height={400}
                     className="rounded-2xl w-full aspect-square object-cover"
                   />
                 </div>
