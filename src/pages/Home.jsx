@@ -339,7 +339,7 @@ export default function Home() {
       </section>
 
       {/* CHI SIAMO */}
-      <section className="py-32 lg:py-40 bg-white relative overflow-hidden">
+      <section className="py-32 lg:py-40 bg-white relative overflow-hidden overflow-x-clip">
         {/* Background Year */}
         <div className="parallax-bg absolute top-1/2 right-0 -translate-y-1/2 text-[35vw] font-bold text-gray-50 leading-none pointer-events-none select-none">
           72
@@ -394,7 +394,7 @@ export default function Home() {
                 {/* Decorative Frame */}
                 <div className="absolute -bottom-6 -right-6 w-full h-full border-2 border-blue-500/20 -z-10" />
                 {/* Founder Card */}
-                <div className="anim-scale absolute -bottom-12 -left-8 lg:-left-12 bg-gray-900 text-white p-8 max-w-xs">
+                <div className="anim-scale absolute -bottom-12 left-0 sm:-left-8 lg:-left-12 bg-gray-900 text-white p-6 sm:p-8 max-w-[280px] sm:max-w-xs">
                   <div className="text-3xl font-light mb-2">Giuseppe Novali</div>
                   <div className="text-white/50 text-sm uppercase tracking-wider">Fondatore</div>
                 </div>
@@ -517,8 +517,22 @@ export default function Home() {
       </section>
 
       {/* QUALITÀ */}
-      <section className="relative min-h-screen flex">
-        {/* Left Image */}
+      <section className="relative lg:min-h-screen flex flex-col lg:flex-row">
+        {/* Mobile Image */}
+        <div className="lg:hidden w-full h-64 relative overflow-hidden">
+          <img
+            src={qualityImage}
+            alt="Controllo qualità Mont.El"
+            title="Controllo qualità"
+            loading="lazy"
+            width={1300}
+            height={900}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/20" />
+        </div>
+
+        {/* Left Image (Desktop) */}
         <div className="hidden lg:block lg:w-1/2 relative anim-img-reveal overflow-hidden">
           <img
             src={qualityImage}

@@ -107,7 +107,7 @@ export default function Contatti() {
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Contact Info */}
             <div className="lg:col-span-2">
-              <div className="sticky top-28">
+              <div className="lg:sticky lg:top-24">
                 <h2 className="text-2xl font-bold text-gray-900 mb-8 reveal opacity-0 translate-y-8">
                   Informazioni di contatto
                 </h2>
