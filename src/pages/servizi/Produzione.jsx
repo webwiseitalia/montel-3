@@ -40,6 +40,7 @@ export default function Produzione() {
           src={stabilimentoImg}
           alt="Produzione Mont.El - Stabilimenti"
           title="Produzione Mont.El"
+          loading="lazy"
           width={2500}
           height={900}
           className="absolute inset-0 w-full h-full object-cover"

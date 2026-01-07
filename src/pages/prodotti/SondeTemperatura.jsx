@@ -48,6 +48,7 @@ export default function SondeTemperatura() {
           src={heroImage}
           alt="Sonde di Temperatura Mont.El"
           title="Sonde di Temperatura"
+          loading="lazy"
           width={2500}
           height={900}
           className="absolute inset-0 w-full h-full object-cover"

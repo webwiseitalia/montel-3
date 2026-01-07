@@ -113,7 +113,7 @@ export default function Settori() {
       {/* Hero */}
       <section className="relative min-h-[60vh] flex items-center bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={heroImage} alt="Settori di applicazione Mont.El" title="Settori di applicazione" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
+          <img src={heroImage} alt="Settori di applicazione Mont.El" title="Settori di applicazione" loading="lazy" width={2500} height={900} className="w-full h-full object-cover opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80" />
         </div>
 

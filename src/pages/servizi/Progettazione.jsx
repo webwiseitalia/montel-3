@@ -36,6 +36,7 @@ export default function Progettazione() {
           src={heroImage}
           alt="Progettazione Mont.El"
           title="Progettazione"
+          loading="lazy"
           width={800}
           height={600}
           className="absolute inset-0 w-full h-full object-cover"

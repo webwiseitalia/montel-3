@@ -68,6 +68,10 @@ export default function ArticleDetail() {
         <img
           src={heroImage}
           alt={articleTitle}
+          title={articleTitle}
+          loading="lazy"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -102,6 +106,10 @@ export default function ArticleDetail() {
                   <img
                     src={mainImage}
                     alt={articleTitle}
+                    title={articleTitle}
+                    loading="lazy"
+                    width={800}
+                    height={450}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -157,11 +165,19 @@ export default function ArticleDetail() {
                     <img
                       src={galleryImages[0]}
                       alt="Dettaglio progetto 1"
+                      title="Dettaglio progetto"
+                      loading="lazy"
+                      width={400}
+                      height={300}
                       className="rounded-2xl w-full aspect-[4/3] object-cover"
                     />
                     <img
                       src={galleryImages[1]}
                       alt="Dettaglio progetto 2"
+                      title="Dettaglio progetto"
+                      loading="lazy"
+                      width={400}
+                      height={300}
                       className="rounded-2xl w-full aspect-[4/3] object-cover"
                     />
                   </div>

@@ -44,6 +44,10 @@ export default function Header() {
             <img
               src={logo}
               alt="Mont.El - electronic wiring equipment"
+              title="Mont.El"
+              loading="lazy"
+              width={120}
+              height={40}
               className="h-10 w-auto"
             />
           </Link>

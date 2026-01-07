@@ -28,7 +28,11 @@ export default function CaseHistoryQuadri() {
       <section className="relative h-[40vh] min-h-[300px] overflow-hidden">
         <img
           src={heroImage}
-          alt="Case History Quadri"
+          alt="Case History Quadri Mont.El"
+          title="Case History Quadri"
+          loading="lazy"
+          width={2500}
+          height={900}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-blue-900/70 to-blue-900/50" />
@@ -81,6 +85,10 @@ export default function CaseHistoryQuadri() {
                         <img
                           src={article.image}
                           alt={article.title}
+                          title={article.title}
+                          loading="lazy"
+                          width={400}
+                          height={400}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>

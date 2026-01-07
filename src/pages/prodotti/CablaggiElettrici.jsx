@@ -70,6 +70,7 @@ export default function CablaggiElettrici() {
           src={heroImage}
           alt="Cablaggi Elettrici Mont.El"
           title="Cablaggi Elettrici"
+          loading="lazy"
           width={2500}
           height={900}
           className="absolute inset-0 w-full h-full object-cover"

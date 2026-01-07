@@ -28,6 +28,7 @@ export default function SensoriLivelloCarburante() {
           src={heroImage}
           alt="Sensori di Livello Carburante Mont.El"
           title="Sensori di Livello Carburante"
+          loading="lazy"
           width={2500}
           height={900}
           className="absolute inset-0 w-full h-full object-cover"

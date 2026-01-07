@@ -227,6 +227,7 @@ export default function Home() {
             src={heroImage}
             alt="Produzione apparecchiature elettroelettroniche Mont.El"
             title="Produzione Mont.El"
+            loading="lazy"
             width={2500}
             height={900}
             className="w-full h-full object-cover"

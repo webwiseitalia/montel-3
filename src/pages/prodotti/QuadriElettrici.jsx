@@ -29,6 +29,7 @@ export default function QuadriElettrici() {
           src={heroImage}
           alt="Quadri Elettrici Mont.El"
           title="Quadri Elettrici"
+          loading="lazy"
           width={2500}
           height={900}
           className="absolute inset-0 w-full h-full object-cover"
